@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\Requests\BrandRequest;
+use Illuminate\Http\Response;
 
 class BrandController extends Controller
 {
@@ -15,7 +16,7 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -38,10 +39,10 @@ class BrandController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @param Brand $brand
+     * @return Brand
      */
-    public function show(Brand $brand)
+    public function show(Brand $brand): Brand
     {
         return $brand;
     }
@@ -50,8 +51,8 @@ class BrandController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @param Brand $brand
+     * @return Response
      */
     public function update(Request $request, Brand $brand)
     {
@@ -61,8 +62,8 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @param Brand $brand
+     * @return Response
      */
     public function destroy(Brand $brand)
     {
