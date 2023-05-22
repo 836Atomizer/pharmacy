@@ -9,8 +9,16 @@ class Brand extends Model
 {
     use HasFactory;
 
+    protected $fillable= [
+        'name'
+    ];
+
     public function getNameAttribute($value): string
     {
         return strtoupper($value);
+    }
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtoupper($value);
     }
 }

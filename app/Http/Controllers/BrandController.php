@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\BrandRequest;
 use Illuminate\Http\Response;
@@ -11,14 +12,14 @@ class BrandController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+        $this->middleware('auth:api', ['except' => ['index']]);
     }
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index()
+    public function index(): Response
     {
        return Brand::get();
     }
@@ -27,13 +28,18 @@ class BrandController extends Controller
      * Store a newly created resource in storage.
      *
      * @param BrandRequest $request
-     * @return void
+     * @return JsonResponse
      */
-    public function store(BrandRequest $request)
+    public function store(BrandRequest $request): JsonResponse
     {
         $request->validated();
         $brand = new Brand;
         $brand->create($request->all());
+        return response()->json(
+            [
+                'message' => 'Success register Brand.'
+            ]
+        );
     }
 
     /**
@@ -50,23 +56,34 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param BrandRequest $request
      * @param Brand $brand
-     * @return Response
+     * @return JsonResponse
      */
-    public function update(Request $request, Brand $brand)
+    public function update(BrandRequest $request, Brand $brand): JsonResponse
     {
+        $request->validated();
         $brand->update($request->all());
+        return response()->json(
+            [
+                'message' => 'Update brand successfully.'
+            ]
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Brand $brand
-     * @return Response
+     * @return JsonResponse
      */
-    public function destroy(Brand $brand)
+    public function destroy(Brand $brand): JsonResponse
     {
-        //
+        $brand->delete();
+        return response()->json(
+            [
+                'message' => 'Delete brand successfully.'
+            ]
+        );
     }
 }
